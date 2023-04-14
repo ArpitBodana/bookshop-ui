@@ -46,7 +46,6 @@ export class CartComponent {
       this.router.navigate(["/login"]);
     }
     else {
-      console.log(this.getCart())
       this.apollo.mutate({
         mutation: addOrder,
         variables: {
