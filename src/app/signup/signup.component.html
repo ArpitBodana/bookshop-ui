@@ -1,0 +1,86 @@
+<div class="flex justify-center mb-3 h-screen absolute w-screen">
+  <div *ngIf="loading" class="mt-32">
+    <app-loading></app-loading>
+  </div>
+  <div
+    class="flex gap-10 p-4 flex-col mt-16 border border-orange-400 border-t-8 rounded-3xl h-fit"
+    *ngIf="!loading"
+  >
+    <h2 class="pl-1 text-orange-400 text-3xl fonst-medium">BookShop SignUp</h2>
+    <form
+      [formGroup]="mainForm"
+      class="pl-1 flex gap-3 flex-col"
+      (ngSubmit)="handleSignUp()"
+    >
+      <div class="flex flex-col gap-2 mb-2">
+        <label>Name </label>
+        <input
+          type="text"
+          class="border-b outline-none border-b-orange-500"
+          formControlName="name"
+        />
+        <div *ngIf="name?.invalid && name?.touched">
+          <small class="text-red-600" *ngIf="name?.errors?.['required']">
+            Name is required
+          </small>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 mb-2">
+        <label class="">Email </label>
+        <input
+          type="text"
+          class="border-b outline-none border-b-orange-500"
+          formControlName="email"
+        />
+        <div *ngIf="email?.invalid && email?.touched">
+          <small class="text-red-600" *ngIf="email?.errors?.['required']">
+            Email is required
+          </small>
+          <small class="text-red-600" *ngIf="email?.errors?.['email']">
+            Email is not valid
+          </small>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 mb-2">
+        <label class="">Password </label>
+        <input
+          type="password"
+          class="border-b outline-none border-b-orange-500"
+          formControlName="password"
+        />
+        <div *ngIf="password?.invalid && password?.touched">
+          <small class="text-red-600" *ngIf="password?.errors?.['required']">
+            Password is required
+          </small>
+          <small class="text-red-600" *ngIf="password?.errors?.['minlength']">
+            Password must contain atleast 3 characters
+          </small>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2 mb-2">
+        <label class="">Confirm Password </label>
+        <input
+          type="password"
+          class="border-b outline-none border-b-orange-500"
+          formControlName="confirmPassword"
+        />
+        <small class="text-red-600" *ngIf="mainForm.errors?.['misMatch']">
+          Password not matched
+        </small>
+      </div>
+      <div *ngIf="error" class="text-center">
+        <p class="text-red-500 text-md font-semibold">{{ this.error }}</p>
+      </div>
+      <div class="flex flex-col gap-2 justify-center">
+        <button
+          class="bg-orange-500 hover:bg-orange-400 text-white rounded-md"
+          type="submit"
+          [disabled]="mainForm.errors || mainForm.invalid"
+          [class.bg-orange-400]="mainForm.errors || mainForm.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

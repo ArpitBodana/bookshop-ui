@@ -1,0 +1,18 @@
+<li class="flex p-1 justify-center items-center">
+  <div class="flex flex-col gap-3 justify-center items-center text-center">
+    <span
+      ><h1 class="font-medium ">{{ book.name | titlecase }}</h1></span
+    >
+    <div class="w-4/5">
+      <img src="{{ book.image }}" [alt]="book.name" />
+    </div>
+    <h1>{{ book.price | currency : "INR" }}</h1>
+    <h1>{{ book.category | titlecase }}</h1>
+    <button
+      class="bg-orange-500 text-white font-bold rounded-md hover:bg-orange-700 w-28 mt-4"
+      (click)="addToCart()"
+    >
+      Add to cart
+    </button>
+  </div>
+</li>

@@ -1,0 +1,41 @@
+<nav
+  class="flex justify-between p-2 shadow-sm shadow-black fixed z-50 w-full bg-gradient-to-r from-orange-600 to-orange-400 bg-opacity-90"
+>
+  <div class="cursor-pointer text-white font-semibold text-2xl" routerLink="/">
+    BookShop
+  </div>
+  <div class="flex gap-2 text-stone-900 font-medium sm:gap-3">
+    <button
+      routerLink="/cart"
+      routerLinkActive="text-blue-600 font-medium"
+      class=""
+    >
+      Cart
+      <span
+        class="text-white bg-black pl-1 pr-1 rounded-lg font-medium"
+        [class.hidden]="cartItemsCount() == 0"
+      >
+        {{ cartItemsCount() }}
+      </span>
+    </button>
+    <ng-container *ngIf="!haveAuth()">
+      <button routerLink="/login" routerLinkActive="text-blue-600 font-medium">
+        Login
+      </button>
+      <button routerLink="/signup" routerLinkActive="text-blue-600 font-medium">
+        SignUp
+      </button>
+    </ng-container>
+    <ng-container *ngIf="haveAuth()">
+      <button routerLink="/orders" routerLinkActive="text-blue-600 font-medium">
+        Orders
+      </button>
+      <button
+        routerLinkActive="text-black font-medium"
+        (click)="handleLogOut()"
+      >
+        Logout
+      </button>
+    </ng-container>
+  </div>
+</nav>

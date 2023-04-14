@@ -1,0 +1,11 @@
+<div class="flex flex-wrap gap-3 w-full justify-center">
+  <div *ngIf="loading" class="mt-4 flex justify-center items-center w-full">
+    <app-loading></app-loading>
+  </div>
+  <ul
+    *ngFor="let book of books; let i = index"
+    class="mt-3 flex flex-wrap border sm:w-5/12 p-1 md:w-3/12 w-full mb-3"
+  >
+    <app-book [book]="book"></app-book>
+  </ul>
+</div>

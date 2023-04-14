@@ -1,0 +1,86 @@
+<div class="flex mb-3 absolute w-full justify-center items-center">
+  <div class="flex gap-3 flex-col mt-16 h-fit">
+    <h2 class="text-orange-500 text-3xl ml-3 font-medium" *ngIf="noItems">
+      Cart
+    </h2>
+    <div class="flex justify-center w-screen" *ngIf="!noItems()">
+      <h1
+        class="text-center m-3 p-5 font-semibold text-4xl bg-gradient-to-br from-orange-500 to-orange-700 text-white border"
+      >
+        Cart is empty
+      </h1>
+    </div>
+
+    <div class="flex justify-center flex-wrap" *ngIf="noItems()">
+      <div
+        class="flex gap-1 items-center justify-center flex-col sm:w-5/12 md:w-3/12 mb-3 ml-3 border border-orange-200 p-1"
+        *ngFor="let i of getCart(); let x = index"
+        [class.flex-grow]="getCart().length < 2"
+      >
+        <span
+          ><h5 class="font-medium text-center">
+            {{ i.name | titlecase }}
+          </h5></span
+        >
+        <div class="w-5/12">
+          <img src="{{ i.image }}" [alt]="i.name" />
+        </div>
+        <span class="text-center"
+          >Book Per Price : {{ i.price | currency : "INR" }}</span
+        >
+        <span class="flex gap-1 text-center"
+          >Quantity :
+          <button
+            class="bg-orange-500 font-bold border border-black hover:bg-orange-600 rounded-sm text-white pl-2 pr-2"
+            (click)="increase(i._id)"
+          >
+            +</button
+          >{{ i.quantity }}
+          <button
+            class="bg-orange-500 font-bold border border-black hover:bg-orange-600 rounded-sm text-white pl-2 pr-2"
+            (click)="decrease(i._id)"
+          >
+            -
+          </button></span
+        >
+        <span
+          >Total Price : {{ i.quantity }} X
+          {{ i.price | currency : "INR" }}</span
+        >
+        <button
+          class="bg-red-600 font-bold border border-black hover:bg-red-700 rounded-sm text-white pl-3 pr-3"
+          (click)="removeItem(i._id)"
+        >
+          X
+        </button>
+      </div>
+    </div>
+    <hr />
+    <div
+      class="flex gap-5 justify-center items-center flex-wrap ml-3 flex-col"
+      *ngIf="noItems()"
+    >
+      <div
+        class="flex gap-3 flex-col border border-orange-400 p-3 justify-center items-center mb-3"
+      >
+        <span>Sub Total : {{ getTotalPrice() | currency : "INR" }} </span>
+        <span>GST : {{ 20.23 | currency : "INR" }}</span>
+        <span>TAX : {{ 103.64 | currency : "INR" }}</span>
+        <span>Delivery Charges : {{ 80.94 | currency : "INR" }}</span>
+        <hr class="border w-full border-orange-500" />
+        <span
+          >Total :
+          {{
+            getTotalPrice() + 103.64 + 20.23 + 80.94 | currency : "INR"
+          }}</span
+        >
+        <button
+          class="bg-orange-500 text-white font-bold rounded-md hover:bg-orange-700 w-28 mt-2 mb-3"
+          (click)="placeOrder()"
+        >
+          Place Order
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

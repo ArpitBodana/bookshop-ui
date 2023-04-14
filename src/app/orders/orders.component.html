@@ -1,0 +1,70 @@
+<div class="flex mb-3 justify-center items-center absolute w-screen">
+  <div class="flex gap-3 flex-col mt-16 h-fit">
+    <h2 class="text-orange-500 text-3xl ml-3 font-medium">Pervious Orders</h2>
+    <div *ngIf="loading" class="mt-4 flex justify-center items-center">
+      <app-loading></app-loading>
+    </div>
+    <div class="text-center" *ngIf="myorders.length < 1 && !loading">
+      <h2
+        class="text-center m-3 p-5 font-semibold text-4xl bg-gradient-to-br from-orange-500 to-orange-700 text-white border"
+      >
+        Not placed any order yet !
+      </h2>
+    </div>
+    <div class="text-center" *ngIf="myorders.length > 1 && !loading">
+      <table class="table-auto border border-1 border-black w-full mb-4">
+        <thead class="border border-1 border-black">
+          <tr class="border border-1 border-black">
+            <th class="border border-1 border-black p-3">#</th>
+            <th class="border border-1 border-black p-3">Books</th>
+            <th class="border border-1 border-black p-3">Quantity</th>
+            <th class="border border-1 border-black p-3">Date</th>
+            <th class="border border-1 border-black p-3">Total Price</th>
+          </tr>
+        </thead>
+        <tbody
+          class="border border-1 border-black font-medium text-xs md:text-sm"
+        >
+          <tr
+            *ngFor="let i of myorders; let n = index"
+            class="border border-1 border-black"
+          >
+            <td class="border border-1 border-black p-3">{{ n + 1 }}</td>
+            <td class="border border-black">
+              <span>
+                <tr *ngFor="let book of i.orderItems; let x = index">
+                  <td
+                    class="border-b border-1 border-b-black p-3"
+                    [class.border-none]="x + 1 == i.orderItems.length"
+                  >
+                    {{ book.name | titlecase }}
+                  </td>
+                </tr>
+              </span>
+            </td>
+
+            <td class="border border-black">
+              <span class="flex flex-col flex-wrap flex-shrink items-center">
+                <tr
+                  *ngFor="let book of i.orderItems; let x = index"
+                  class="p-3"
+                >
+                  <td>
+                    {{ book.quantity }}
+                  </td>
+                </tr>
+              </span>
+            </td>
+
+            <td class="border border-1 border-black p-3">
+              {{ i.createdAt | date }}
+            </td>
+            <td class="border border-1 border-black p-3">
+              {{ i.totalPrice | currency : "INR" }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
